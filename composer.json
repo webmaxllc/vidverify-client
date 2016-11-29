@@ -1,17 +1,13 @@
 {
-    "name": "webmax/velocify-client",
-    "description": "Velocify PHP client built with Guzzle",
-    "keywords": ["velocify", "marketing", "webmax"],
+    "name": "webmax/vidverify-client",
+    "description": "VidVerify PHP client built with Guzzle",
+    "keywords": ["vidverify", "marketing", "webmax"],
     "type": "library",
     "license": "MIT",
     "authors": [
         {
             "name": "Frank Bardon Jr.",
             "email": "frankbardon@gmail.com"
-        },
-        {
-            "name": "Kyle McCloskey",
-            "email": "kyle.mccloskey@webmaxco.com"
         }
     ],
     "autoload": {
