@@ -132,9 +132,32 @@ class VidVerifyClient
         );
     }
 
+    /**
+     * Get invoice report.
+     *
+     * @param integer $year
+     * @param integer|null $month
+     *
+     * @return InvoiceRecord[]|null
+     */
     public function getInvoiceReport($year, $month = null)
     {
-        throw new GenericException("Invoice report endpoint has not yet been implemented.");
+        $response = $this->client->request('GET', 'invoice_report', array(
+            'query' => array(
+                'API_key' => $this->apiKey,
+                'Year' => $year,
+                'Month' => $month,
+            )
+        ));
+
+        $serializer = $this->getSerializer();
+        $body = (string) $response->getBody();
+
+        if ("null" === $body) {
+            return;
+        }
+
+        return $serializer->deserialize($body, 'array<Webmax\VidVerifyClient\Model\InvoiceRecord>', 'json');
     }
 
     /**
