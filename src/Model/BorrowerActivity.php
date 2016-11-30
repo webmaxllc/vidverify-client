@@ -5,7 +5,7 @@ namespace Webmax\VidVerifyClient\Model;
 use DateTime;
 use DateInterval;
 
-class Activity
+class BorrowerActivity
 {
     /**
      * Borrower id
@@ -29,13 +29,6 @@ class Activity
     protected $videoTitle;
 
     /**
-     * Video start time
-     *
-     * @var DateTime
-     */
-    protected $videoStartTime;
-
-    /**
      * Video length (raw)
      *
      * @var string
@@ -48,6 +41,13 @@ class Activity
      * @var string
      */
     protected $rawWatchedVideoLength;
+
+    /**
+     * Amount of times video watched.
+     *
+     * @var integer
+     */
+    protected $timesWatched;
 
 
     public function getBorrowerId()
@@ -88,6 +88,11 @@ class Activity
     public function getWatchedVideoLength()
     {
         return $this->convertToInterval($this->rawWatchedVideoLength);
+    }
+
+    public function getTimesWatched()
+    {
+        return $this->timesWatched;
     }
 
     protected function convertToInterval($string)

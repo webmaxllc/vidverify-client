@@ -143,7 +143,7 @@ class VidVerifyClient
      * @param DateTime $from
      * @param DateTime $to
      *
-     * @return Activity[]
+     * @return Activity[]|null
      */
     public function getAllActivities(DateTime $from, DateTime $to)
     {
@@ -165,8 +165,29 @@ class VidVerifyClient
         return $serializer->deserialize($body, 'array<Webmax\VidVerifyClient\Model\Activity>', 'json');
     }
 
+    /**
+     * Get borrower activities.
+     *
+     * @param integer $borrowerId
+     *
+     * @return BorrowerActivity[]|null
+     */
     public function getBorrowerActivities($borrowerId)
     {
-        throw new GenericException("Borrower activities endpoint has not yet been implemented.");
+        $response = $this->client->request('GET', '/vbank_api/ReportBorrowerActivity', array(
+            'query' => array(
+                'API_key' => $this->apiKey,
+                'BorrowerNumber' => $borrowerId,
+            )
+        ));
+
+        $serializer = $this->getSerializer();
+        $body = (string) $response->getBody();
+
+        if ("null" === $body) {
+            return;
+        }
+
+        return $serializer->deserialize($body, 'array<Webmax\VidVerifyClient\Model\BorrowerActivity>', 'json');
     }
 }
