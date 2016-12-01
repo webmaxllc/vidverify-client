@@ -1,8 +1,8 @@
 VidVerify API client
 ================
 
-- [![Build Status](https://travis-ci.org/webmax/vidverify-client.svg?branch=master)](https://travis-ci.org/webmax/vidverify-client) master
-- [![Build Status](https://travis-ci.org/webmax/vidverify-client.svg?branch=1.0)](https://travis-ci.org/webmax/vidverify-client) 1.0
+- [![Build Status](https://travis-ci.org/webmaxllc/vidverify-client.svg?branch=master)](https://travis-ci.org/webmaxllc/vidverify-client) master
+- [![Build Status](https://travis-ci.org/webmaxllc/vidverify-client.svg?branch=1.0)](https://travis-ci.org/webmaxllc/vidverify-client) 1.0
 
 The VidVerify API client is a PHP library which provides simplified access to
 the [VidVerify API](http://vidverify.com) and the data it returns.
@@ -43,7 +43,17 @@ Quick Start
 -----------
 
 ```php
-// Writeme
+$loader = require_once 'vendor/autoload.php';
+$loader->register(true);
+
+$apiKey = '<api-key>';
+$endpoint = '<endpoint-subdomain>';
+
+$client = new VidVerifyClient($endpoint, $apiKey, [], null, true);
+
+$from = new \DateTime('2015-01-01 12:00');
+$to = new \DateTime('2016-07-12 12:00');
+$activities = $client->getAllActivities($from, $to);
 ```
 
 Contributing
