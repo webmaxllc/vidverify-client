@@ -48,4 +48,13 @@ abstract class ClientTestCase extends PHPUnit_Framework_TestCase
             new Response($statusCode, $headers, $body)
         );
     }
+
+    protected function injectPropertyValue($object, $property, $value)
+    {
+        $objRefl = new \ReflectionObject($object);
+        $property = $objRefl->getProperty($property);
+
+        $property->setAccessible(true);
+        $property->setValue($object, $value);
+    }
 }
