@@ -11,14 +11,14 @@ class InvoiceRecordTests extends ClientTestCase
     {
     $invoiceRecord = $this->createInvoiceRecord();
 
-    $this->assertSame(self::BORROWER_ID, $activity->getBorrowerId());
+    $this->assertSame(self::BORROWER_ID, $invoiceRecord->getBorrowerId());
     }
 
     public function testAcceptsWatchedVideoCount()
     {
     $invoiceRecord = $this->createInvoiceRecord();
 
-    $this->$this->assertSame(self::WATCHED_VIDEO_COUNT, $invoiceRecord->getWatchedVideoCount());
+    $this->assertSame(self::WATCHED_VIDEO_COUNT, $invoiceRecord->getWatchedVideoCount());
     }
 
     private function createInvoiceRecord()

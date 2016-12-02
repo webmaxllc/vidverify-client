@@ -4,12 +4,12 @@ use Webmax\VidVerifyClient\Model\BorrowerActivity;
 
 class BorrowerActivityTests extends ClientTestCase
 {
-    const BORROWER_ID = 'id';
-    const VIDEO_ID = 'vId';
+    const BORROWER_ID = 3;
+    const VIDEO_ID = 7;
     const VIDEO_TITLE = 'Video Title';
-    const RAW_VIDEO_LENGTH = 'length';
-    const RAW_WATCHED_VIDEO_LENGTH = 'rLength';
-    const TIMES_WATCHED = 'times';
+    const RAW_VIDEO_LENGTH = '0:1:5';
+    const RAW_WATCHED_VIDEO_LENGTH = '0:0:3';
+    const TIMES_WATCHED = 2;
 
     public function testAcceptsBorrowerId ()
     {

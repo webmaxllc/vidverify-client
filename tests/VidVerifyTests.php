@@ -5,8 +5,12 @@ class VidVerifyTests extends ClientTestCase
     public function testAllActivitiesSuccessResponse()
     {
         $client = $this->createClient($this->getHandledConfig('all-activity'));
+    }
 
-        die(var_dump($client));
+    public function testAllActivitiesSuccessResponseIsObject()
+    {
+        $client = $this->createClient($this->getHandledConfig('all-activity'));
+
     }
 
     private function getHandledConfig($which)

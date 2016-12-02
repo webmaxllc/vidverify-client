@@ -13,7 +13,7 @@ abstract class ClientTestCase extends PHPUnit_Framework_TestCase
 {
     public function createClient(array $config = array(), $serializerCacheDirectory = null, $debug = true)
     {
-        return new VidVerifyClient();
+        return new VidVerifyClient("noworkie", "asdf", $config, $serializerCacheDirectory, $debug);
     }
 
     protected function getData($file)

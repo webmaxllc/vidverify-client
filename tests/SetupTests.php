@@ -6,16 +6,16 @@ class SetupTests extends ClientTestCase
   {
     $client = $this->createClient();
 
-    $this->$this->assertAttributeSame(true, 'debug', $client);
-    $this->$this->assertAttributeInstanceOf('GuzzleHttp\Client', 'client', $client);
-    $this->$this->assertAttributeSame(sys_get_temp_dir(), 'serializerCacheDirectory', $client);
+    $this->assertAttributeSame(true, 'debug', $client);
+    $this->assertAttributeInstanceOf('GuzzleHttp\Client', 'client', $client);
+    $this->assertAttributeSame(sys_get_temp_dir(), 'serializerCacheDirectory', $client);
   }
 
   public function testDebugSetup()
   {
     $client = $this->createClient(array(), null, true);
 
-    $this->$this->assertAttributeSame(true, 'debug', $client);
+    $this->assertAttributeSame(true, 'debug', $client);
   }
 
   public function testCustomSerializerMetadataDirectory()

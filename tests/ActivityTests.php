@@ -7,9 +7,9 @@ class ActivityTests extends ClientTestCase
     const BORROWER_ID = 1;
     const VIDEO_ID = 4;
     const VIDEO_TITLE = 'Video Title';
-    const VIDEO_START_TIME = '';
-    const RAW_VIDEO_LENGTH = '';
-    const RAW_WATCHED_VIDEO_LENGTH = '';
+    const VIDEO_START_TIME = '0:0:0';
+    const RAW_VIDEO_LENGTH = '0:1:52';
+    const RAW_WATCHED_VIDEO_LENGTH = '0:0:10';
 
     public function testAcceptsBorrowerId ()
     {
@@ -20,37 +20,37 @@ class ActivityTests extends ClientTestCase
 
     public function testAcceptsVideoId()
     {
-    $activity = $this->createActivity();
+        $activity = $this->createActivity();
 
-    $this->assertSame(self::VIDEO_ID, $activity->getVideoId());
+        $this->assertSame(self::VIDEO_ID, $activity->getVideoId());
     }
 
     public function testAcceptsVideoTitle()
     {
-    $activity = $this->createActivity();
+        $activity = $this->createActivity();
 
-    $this->assertSame(self::VIDEO_TITLE, $activity->getVideoTitle());
+        $this->assertSame(self::VIDEO_TITLE, $activity->getVideoTitle());
     }
 
     public function testAcceptsVideoStartTime()
     {
-    $activity = $this->createActivity();
+        $activity = $this->createActivity();
 
-    $this->assertSame(self::VIDEO_START_TIME, $activity->getVideoStartTime());
+        $this->assertSame(self::VIDEO_START_TIME, $activity->getVideoStartTime());
     }
 
     public function testAcceptsRawVideoLength()
     {
-    $activity = $this->createActivity();
+        $activity = $this->createActivity();
 
-    $this->assertSame(self::RAW_VIDEO_LENGTH, $activity->getRawVideoLength());
+        $this->assertSame(self::RAW_VIDEO_LENGTH, $activity->getRawVideoLength());
     }
 
     public function testAcceptsRawWatchedVideoLength()
     {
-    $activity = $this->createActivity();
+        $activity = $this->createActivity();
 
-    $this->assertSame(self::RAW_WATCHED_VIDEO_LENGTH, $activity->getRawWatchedVideoLength());
+        $this->assertSame(self::RAW_WATCHED_VIDEO_LENGTH, $activity->getRawWatchedVideoLength());
     }
 
     private function createActivity()
