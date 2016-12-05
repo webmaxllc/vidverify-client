@@ -29,6 +29,12 @@ class BorrowerActivity
     protected $videoTitle;
 
     /**
+     * Video's Start Time
+     * @var string
+     */
+    protected $videoStartTime;
+
+    /**
      * Video length (raw)
      *
      * @var string

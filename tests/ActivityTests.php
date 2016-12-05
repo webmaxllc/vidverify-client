@@ -53,9 +53,29 @@ class ActivityTests extends ClientTestCase
         $this->assertSame(self::RAW_WATCHED_VIDEO_LENGTH, $activity->getRawWatchedVideoLength());
     }
 
+    public function testConvertsRawVideoLength()
+    {
+        $activity = $this->createActivity();
+        $rawVideoLength = $activity->getVideoLength();
+
+        $this->assertInstanceOf('DateInterval', $rawVideoLength);
+        $this->assertSame(1, $rawVideoLength->i);
+        $this->assertSame(52, $rawVideoLength->s);
+    }
+
+    public function testConvertsRawWatchedVideoLength()
+    {
+        $activity = $this->createActivity();
+        $rawWatchedVideoLength = $activity->getWatchedVideoLength();
+
+        $this->assertInstanceOf('DateInterval', $rawWatchedVideoLength);
+        $this->assertSame(10, $rawWatchedVideoLength->s);
+    }
+
     private function createActivity()
     {
         $activity = new Activity();
+
         $this->injectPropertyValue($activity, "borrowerId", self::BORROWER_ID);
         $this->injectPropertyValue($activity, "videoId", self::VIDEO_ID);
         $this->injectPropertyValue($activity, "videoTitle", self::VIDEO_TITLE);
