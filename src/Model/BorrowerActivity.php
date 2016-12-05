@@ -29,6 +29,12 @@ class BorrowerActivity
     protected $videoTitle;
 
     /**
+     * Video's Start Time
+     * @var string
+     */
+    protected $videoStartTime;
+
+    /**
      * Video length (raw)
      *
      * @var string
@@ -72,7 +78,7 @@ class BorrowerActivity
 
     public function getRawVideoLength()
     {
-        return $this->videoLength;
+        return $this->rawVideoLength;
     }
 
     public function getVideoLength()
@@ -82,7 +88,7 @@ class BorrowerActivity
 
     public function getRawWatchedVideoLength()
     {
-        return $this->watchedVideoLength;
+        return $this->rawWatchedVideoLength;
     }
 
     public function getWatchedVideoLength()

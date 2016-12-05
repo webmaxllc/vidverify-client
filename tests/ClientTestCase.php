@@ -13,7 +13,7 @@ abstract class ClientTestCase extends PHPUnit_Framework_TestCase
 {
     public function createClient(array $config = array(), $serializerCacheDirectory = null, $debug = true)
     {
-        return new VidVerifyClient();
+        return new VidVerifyClient("noworkie", "asdf", $config, $serializerCacheDirectory, $debug);
     }
 
     protected function getData($file)
@@ -47,5 +47,14 @@ abstract class ClientTestCase extends PHPUnit_Framework_TestCase
             new Request('GET', 'test'),
             new Response($statusCode, $headers, $body)
         );
+    }
+
+    protected function injectPropertyValue($object, $property, $value)
+    {
+        $objRefl = new \ReflectionObject($object);
+        $property = $objRefl->getProperty($property);
+
+        $property->setAccessible(true);
+        $property->setValue($object, $value);
     }
 }

@@ -72,7 +72,7 @@ class Activity
 
     public function getRawVideoLength()
     {
-        return $this->videoLength;
+        return $this->rawVideoLength;
     }
 
     public function getVideoLength()
@@ -82,7 +82,7 @@ class Activity
 
     public function getRawWatchedVideoLength()
     {
-        return $this->watchedVideoLength;
+        return $this->rawWatchedVideoLength;
     }
 
     public function getWatchedVideoLength()
