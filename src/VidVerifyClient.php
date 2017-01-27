@@ -2,12 +2,14 @@
 
 namespace Webmax\VidVerifyClient;
 
+use DateTime;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\ClientInterface;
 use JMS\Serializer\SerializerInterface;
 use JMS\Serializer\SerializerBuilder;
 use Webmax\VidVerifyClient\Model\VidVerifyResponse;
+use Webmax\VidVerifyClient\Exception\GenericException;
 
 /**
  * VidVerify API client
@@ -45,76 +47,33 @@ class VidVerifyClient
      */
     private $serializerCacheDirectory;
 
-    /**
-     * VidVerify sponsor
-     *
-     * @var string
-     */
-    private $sponsor;
+    private $apiKey;
 
-    /**
-     * VidVerify sponsor key
-     *
-     * @var string
-     */
-    private $sponsorKey;
-
-    /**
-     * VidVerify client key
-     *
-     * @var string
-     */
-    private $clientKey;
 
     /**
      * Constructor
      *
-     * @param string $apiKey
-     * @param string $endpoint
-     * @param string $sponsor
-     * @param string $sponsorKey
-     * @param string $clientKey
      * @param array $config
+     * @param string|null $serializerCacheDirectory
+     * @param boolean $debug
      */
     public function __construct(
-        $apiKey,
         $endpoint,
-        $sponsor,
-        $sponsorKey,
-        $clientKey,
+        $apiKey,
         $config = array(),
         $serializerCacheDirectory = null,
         $debug = false
     ) {
-        $config = array_merge_recursive($this->getDefaultConfig($apiKey, $endpoint), $config);
+        $config = array_merge_recursive($this->getDefaultConfig($endpoint, $apiKey), $config);
 
         if ($debug) {
             $config['debug'] = true;
         }
 
-        $this->sponsor = $sponsor;
-        $this->sponsorKey = $sponsorKey;
-        $this->clientKey = $clientKey;
+        $this->apiKey = $apiKey;
         $this->debug = $debug;
         $this->serializerCacheDirectory = $serializerCacheDirectory ?: sys_get_temp_dir();
         $this->client = new GuzzleClient($config);
-    }
-
-    /**
-     * Send a VidVerify command packet
-     *
-     * @param CommandPacket $cp
-     * @return VidVerifyResponse
-     */
-    public function sendCommandPacket(CommandPacket $cp)
-    {
-        $response = $this->client->request('POST', 'job', array(
-            'json' => $cp
-        ));
-
-        $serializer = $this->getSerializer();
-
-        return $serializer->deserialize($response->getBody(), 'Webmax\VidVerifyClient\Model\VidVerifyResponse', 'json');
     }
 
     /**
@@ -153,20 +112,105 @@ class VidVerifyClient
     /**
      * Get default client configuration
      *
-     * @param string $apiKey
      * @param string $endpoint
+     * @param string $apiKey
      * @return array
      */
-    protected function getDefaultConfig($apiKey, $endpoint)
+    protected function getDefaultConfig($endpoint, $apiKey)
     {
         return array(
-            'base_uri' => sprintf('https://%s.vidverify.com/', $endpoint),
+            'base_uri' => sprintf('https://%s.vidverify.com/vbank/', $endpoint),
             'connect_timeout' => 3,
             'timeout' => 5,
             'headers' => array(
                 'Content-Type' => 'application/json',
-                'x-api-key' => $apiKey,
+                'Accepts' => 'application/json',
+            ),
+            'query' => array(
+                'API_key' => $apiKey,
             )
         );
+    }
+
+    /**
+     * Get invoice report.
+     *
+     * @param integer $year
+     * @param integer|null $month
+     *
+     * @return InvoiceRecord[]|null
+     */
+    public function getInvoiceReport($year, $month = null)
+    {
+        $response = $this->client->request('GET', 'invoice_report', array(
+            'query' => array(
+                'API_key' => $this->apiKey,
+                'Year' => $year,
+                'Month' => $month,
+            )
+        ));
+
+        $serializer = $this->getSerializer();
+        $body = (string) $response->getBody();
+
+        if ("null" === $body) {
+            return;
+        }
+
+        return $serializer->deserialize($body, 'array<Webmax\VidVerifyClient\Model\InvoiceRecord>', 'json');
+    }
+
+    /**
+     * Get all activity report.
+     *
+     * @param DateTime $from
+     * @param DateTime $to
+     *
+     * @return Activity[]|null
+     */
+    public function getAllActivities(DateTime $from, DateTime $to)
+    {
+        $response = $this->client->request('GET', '/vbank_api/ReportAllActivity', array(
+            'query' => array(
+                'API_key' => $this->apiKey,
+                'From' => $from->format('Y-n-j h:i:s'),
+                'To' => $to->format('Y-n-j h:i:s'),
+            )
+        ));
+
+        $serializer = $this->getSerializer();
+        $body = (string) $response->getBody();
+
+        if ("null" === $body) {
+            return;
+        }
+
+        return $serializer->deserialize($body, 'array<Webmax\VidVerifyClient\Model\Activity>', 'json');
+    }
+
+    /**
+     * Get borrower activities.
+     *
+     * @param integer $borrowerId
+     *
+     * @return BorrowerActivity[]|null
+     */
+    public function getBorrowerActivities($borrowerId)
+    {
+        $response = $this->client->request('GET', '/vbank_api/ReportBorrowerActivity', array(
+            'query' => array(
+                'API_key' => $this->apiKey,
+                'BorrowerNumber' => $borrowerId,
+            )
+        ));
+
+        $serializer = $this->getSerializer();
+        $body = (string) $response->getBody();
+
+        if ("null" === $body) {
+            return;
+        }
+
+        return $serializer->deserialize($body, 'array<Webmax\VidVerifyClient\Model\BorrowerActivity>', 'json');
     }
 }

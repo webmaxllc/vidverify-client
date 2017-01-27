@@ -8,12 +8,19 @@
         {
             "name": "Frank Bardon Jr.",
             "email": "frankbardon@gmail.com"
+        },
+        {
+            "name": "Alyssa Stone",
+            "email": "alyssa.stone@webmaxco.com"
         }
     ],
     "autoload": {
         "psr-4": {
-            "Webmax\\VelocifyClient\\": "src/"
+            "Webmax\\VidVerifyClient\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "classmap": ["tests/"]
     },
     "require": {
         "php": ">=5.5",
