@@ -13,7 +13,7 @@ the [VidVerify API](http://vidverify.com) and the data it returns.
 Requirements
 ------------
 
-- PHP 5.6 and above
+- PHP 5.5 and above
 - See the `require` section of [composer.json](composer.json)
 
 Documentation
