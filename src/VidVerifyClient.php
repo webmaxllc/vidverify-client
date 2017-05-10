@@ -1,6 +1,6 @@
 <?php
 
-namespace Webmax\VidVerifyClient;
+namespace Webmaxllc\VidVerifyClient;
 
 use DateTime;
 use GuzzleHttp\Client as GuzzleClient;
@@ -8,8 +8,8 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\ClientInterface;
 use JMS\Serializer\SerializerInterface;
 use JMS\Serializer\SerializerBuilder;
-use Webmax\VidVerifyClient\Model\VidVerifyResponse;
-use Webmax\VidVerifyClient\Exception\GenericException;
+use Webmaxllc\VidVerifyClient\Model\VidVerifyResponse;
+use Webmaxllc\VidVerifyClient\Exception\GenericException;
 
 /**
  * VidVerify API client
@@ -95,7 +95,7 @@ class VidVerifyClient
     {
         if (null === $this->serializer) {
             $serializer = SerializerBuilder::create()
-                ->addMetadataDir(realpath(__DIR__.'/../metadata'), 'Webmax\\VidVerifyClient\\Model')
+                ->addMetadataDir(realpath(__DIR__.'/../metadata'), 'Webmaxllc\\VidVerifyClient\\Model')
                 ->setDebug($this->debug);
 
             // Only cache when not debugging.
@@ -157,7 +157,7 @@ class VidVerifyClient
             return;
         }
 
-        return $serializer->deserialize($body, 'array<Webmax\VidVerifyClient\Model\InvoiceRecord>', 'json');
+        return $serializer->deserialize($body, 'array<Webmaxllc\VidVerifyClient\Model\InvoiceRecord>', 'json');
     }
 
     /**
@@ -185,7 +185,7 @@ class VidVerifyClient
             return;
         }
 
-        return $serializer->deserialize($body, 'array<Webmax\VidVerifyClient\Model\Activity>', 'json');
+        return $serializer->deserialize($body, 'array<Webmaxllc\VidVerifyClient\Model\Activity>', 'json');
     }
 
     /**
@@ -211,6 +211,6 @@ class VidVerifyClient
             return;
         }
 
-        return $serializer->deserialize($body, 'array<Webmax\VidVerifyClient\Model\BorrowerActivity>', 'json');
+        return $serializer->deserialize($body, 'array<Webmaxllc\VidVerifyClient\Model\BorrowerActivity>', 'json');
     }
 }
