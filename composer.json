@@ -1,5 +1,5 @@
 {
-    "name": "webmax/vidverify-client",
+    "name": "webmaxllc/vidverify-client",
     "description": "VidVerify PHP client built with Guzzle",
     "keywords": ["vidverify", "marketing", "webmax"],
     "type": "library",
