@@ -1,6 +1,6 @@
 <?php
 
-namespace Webmax\VidVerifyClient\Model;
+namespace Webmaxllc\VidVerifyClient\Model;
 
 use DateTime;
 use DateInterval;
