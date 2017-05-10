@@ -16,7 +16,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Webmax\\VidVerifyClient\\": "src/"
+            "Webmaxllc\\VidVerifyClient\\": "src/"
         }
     },
     "autoload-dev": {
